@@ -1,4 +1,5 @@
 from get_stat import get_info
+from calculate import stat
 import json
 
 
@@ -11,4 +12,5 @@ if __name__ == '__main__':
         poke_stat = get_info(poke_name, poke_stat)
         with open('data/poke_stat.json', 'w') as fp:
             json.dump(poke_stat, fp)
-    print(poke_stat[poke_name])
+    p_stat = stat(poke_stat[poke_name])
+    print(p_stat.calc())
