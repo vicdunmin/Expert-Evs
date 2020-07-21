@@ -1,20 +1,14 @@
-import sys
-import codecs
-from urllib import request
-from bs4 import BeautifulSoup
+from get_stat import get_info
+import json
 
-sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 
-url = "https://wiki.52poke.com/wiki/celebi"
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'}
-page = request.Request(url, headers=headers)
-page_info = request.urlopen(page).read().decode(
-    'utf-8')
-
-soup = BeautifulSoup(page_info, 'html.parser')
-
-titles = soup.find('tr', 'bgl-HP').stripped_strings
-
-for t in titles:
-    print(t)
+if __name__ == '__main__':
+    poke_name = input(
+        'Please enter in the pokemon name you want to calculate: ').lower()
+    with open('data/poke_stat.json', 'r') as fp:
+        poke_stat = json.load(fp)
+    if poke_name not in poke_stat:
+        poke_stat = get_info(poke_name, poke_stat)
+        with open('data/poke_stat.json', 'w') as fp:
+            json.dump(poke_stat, fp)
+    print(poke_stat[poke_name])
