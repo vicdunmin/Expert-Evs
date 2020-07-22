@@ -78,7 +78,7 @@ class stat(object):
                                 max_score = score
                                 if not self.allow_nature:
                                     max_comb = [hp_ev, def_ev,
-                                                spd_ev, 'no nature']
+                                                spd_ev, 'no nature', None]
                                 else:
                                     if nat == 'Bold' or nat == 'Impish':
                                         nat = '+Def'
